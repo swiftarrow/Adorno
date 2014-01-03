@@ -114,7 +114,7 @@ Celebrate!  You have finished setting up the requirements for Tango with Django!
 Since that's quite a bit of work for today, we'll wind down before starting the actual django project.
 
 
-## WINDING DOWN THE EASY WAY:
+## RESOLUTIÒN THE EASY WAY:
 
 1. First exit the vagrant box:
 ```bash
@@ -126,7 +126,7 @@ Since that's quite a bit of work for today, we'll wind down before starting the 
 host:~/tango$ vagrant suspend
 ```
 
-## WINDING DOWN THE LONG WAY:
+## RESOLUTIÒN THE LONG WAY:
 
 1. First de-activate the virtual environment:
 ```bash
