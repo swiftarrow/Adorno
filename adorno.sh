@@ -4,6 +4,14 @@
 # Author: Linkesh Diwan swiftarrow9@gmail.com
 # License: Peaceful Open Source Licens (PeaceOSL)
 
+echo 'Removing some files that came with Adorno, but you do not want:'
+
+rm -rf /vagrant/.github
+
+echo 'Implementing your new .gitignore:'
+
+mv /vagrant/Git_Ignore /vagrant/.gitignore
+
 echo 'Updating Package Database:'
 
 sudo apt-get update

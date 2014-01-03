@@ -47,17 +47,7 @@ host:~$ clone https://github.com/swiftarrow/Adorno.github
 host:~$ cd ~/tango
 ```
 
-1. Rename the Git_Ignore file to .gitignore:
-```bash
-host:~$ mv Git_Ignore .gitignore
-```
-
-1. Remove the .git directory (your project is different):
-```bash
-host:~$ rm -rf .git
-```
-
-1. If you don't agree with the PeaceOSL License for your project, remove it too:
+1. If you don't agree with the PeaceOSL License for your project, remove it:
 ```bash
 host:~$ rm LICENSE.txt
 ```
@@ -155,7 +145,8 @@ host:~/tango$ halt
 
 ## TANGO STEPS:
 
-Note: this is a sample workflow, assuming that you are on a *nix based host computer.  For windows based computers, the exact commands may vary slightly.
+***Note: this is a sample workflow, assuming that you are on a *nix based host computer.  For windows based computers, the exact commands may vary slightly.***
+
 The best way to do this is have three terminal windows, each open to ~/tango.  On two of them, log into the vagrant box.  Use one of these for runserver, and the other for file operations.  Use the third window for file operations on the host system.  For the following, we're labelling these three windows T1, T2, and T3.
 
 1. T1 Start the vagrant box that we've already prepared:
@@ -203,6 +194,7 @@ Start django apps as necessary.  Make or delete files as you need.
 ## GOING TO THE BIG STAGE:
 
 **Note: Heroku is a pretty awesome service, which allows us to run our apps live online, for free!  To use it, we use Git to push our code to Heroku.  All of these commands are done on the host machine (in the third terminal window, if you followed the Dance Steps above).**
+
 1. Setup Heroku:
 ```bash
 host:~/tango$ heroku login
