@@ -36,6 +36,7 @@ This README document also doubles as a quick-reference guide for beginners like 
 ```bash
 host:~$ clone https://github.com/swiftarrow/Adorno.github
 ```
+
 1. Rename the Adorno folder to whatever you want to call it.  It will hold your Django project.
    ```bash
  host:~$ mv ~/Adorno ~/tango
