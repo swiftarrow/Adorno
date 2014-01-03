@@ -41,40 +41,49 @@ host:~$ clone https://github.com/swiftarrow/Adorno.github
    ```bash
  host:~$ mv ~/Adorno ~/tango
 ```
+
 1. Change to the project directory:
 ```bash
 host:~$ cd ~/tango
 ```
+
 1. Rename the Git_Ignore file to .gitignore:
 ```bash
 host:~$ mv Git_Ignore .gitignore
 ```
+
 1. Remove the .git directory (your project is different):
 ```bash
 host:~$ rm -rf .git
 ```
+
 1. If you don't agree with the PeaceOSL License for your project, remove it too:
 ```bash
 host:~$ rm LICENSE.txt
 ```
+
 1. Start Vagrant
 ```bash
 host:~$ vagrant up
 ```
+
 1. It will download and install the precise64 virtual image, and then boot the system.
 1. After it's booted, go into the vagrant box by:
 ```bash
 host:~$ vagrant ssh
 ```
+
 1. You are now logged into your virtual system.  Now we need to set up the machine for use.
 1. Execute vagrant's post-install script:
 ```bash
 vagrant:~$ sudo ./post_install.sh
 ```
-1. **Add Adorno to your Tango with Django**:
+
+1. **Add Adorno to your Tango with Django:**
 ```bash
 vagrant:~$ source /vagrant/adorno.sh
 ```
+
 1. Go over the output from the adorno command just to make sure that everything went through well.  
 If there were no errors, your good to go!  
 Adorno drops you into the folder vagrant:/vagrant/, which is actually the same as your project directory, host:~/tango
@@ -83,28 +92,34 @@ Adorno drops you into the folder vagrant:/vagrant/, which is actually the same a
 ```bash
 vagrant:/vagrant$ mkvirtualenv tangodjango
 ```
+
 1. And let's activate the new environment:
 ```bash
 vagrant:/vagrant$ workon tangodjango
 ```
+
 1. Now we should continue with the Tango with Django instructions found here:
 http://www.tangowithdjango.com/book/chapters/requirements.html
   1. Install Django (section 2.2.4):
 ```bash
 (tangodjango)vagrant:/vagrant$ pip install -U Django==1.5.4
 ```
+
   1. Install the Python Imaging Library (section 2.2.5):
 ```bash
 (tangodjango)vagrant:/vagrant$ pip install pil
 ```
+
   1. Install other Python Packages that you need (section 2.2.6):
 ```bash
 (tangodjango)vagrant:/vagrant$ pip install package_name
 ```
+
   1. Finally, save your Package List:
 ```bash
 (tangodjango)vagrant:/vagrant$ pip freeze > requirements.txt
 ```
+
 Celebrate!  You have finished setting up the requirements for Tango with Django!
 Since that's quite a bit of work for today, we'll wind down before starting the actual django project.
 
@@ -115,6 +130,7 @@ Since that's quite a bit of work for today, we'll wind down before starting the 
 ```bash
 (tangodjango)vagrant:/vagrant$ exit
 ```
+
 1. Suspend the vagrant box:
  ```bash
 host:~/tango$ vagrant suspend
@@ -126,10 +142,12 @@ host:~/tango$ vagrant suspend
 ```bash
 (tangodjango)vagrant:/vagrant$ deactivate
 ```
+
 1. Exit the vagrant box:
 ```bash
 (tangodjango)vagrant:/vagrant$ exit
 ```
+
 1. Shut down the vagrant box:
 ```bash
 host:~/tango$ halt
@@ -144,26 +162,32 @@ The best way to do this is have three terminal windows, each open to ~/tango.  O
 ```bash
 host:~/tango$ vagrant up
 ```
+
 1. T1 & T2 Log into the vagrant box:
 ```bash
 host:~/tango$ vagrant ssh
 ```
+
 1. T1 & T2 Go to your project directory:
 ```bash
 vagrant:~$ cd /vagrant
 ```
+
 1. T1 & T2 Enter the virtual environment:
 ```bash
 vagrant:/vagrant$ workon tangodjango
 ```
+
 1. T1 If you haven't already, start a Django project:
 ```bash
 (tangodjango)vagrant:/vagrant$ django-admin.py startproject rango
 ```
+
 1. T1 & T2 Enter the project directory:
 ```bash
 (tangodjango)vagrant:/vagrant$ cd rango
 ```
+
 Now you're all set.  Use your editor on your host machine to edit the files as you need.  
 They are in the folder ~/tango/rango
 Start django apps as necessary.  Make or delete files as you need.
@@ -172,6 +196,7 @@ Start django apps as necessary.  Make or delete files as you need.
 ```bash
 (tangodjango)vagrant:/vagrant/rango$ python manage.py runserver 0.0.0.0:8000
 ```
+
 1. On your host machine, open a browser and go to 127.0.0.1:8888 to admire your project!
 
 
@@ -182,6 +207,7 @@ Start django apps as necessary.  Make or delete files as you need.
 ```bash
 host:~/tango$ heroku login
 ```
+
 Follow the instructions, generate an SSH key if necessary.
 
 I recommend that you follow the first two lessons of Getting Started With Django to learn how to set your code up to deploy to Heroku and run locally at the same time.
@@ -191,22 +217,27 @@ Alternatively, you can use the instructions at https://devcenter.heroku.com/arti
 ```bash
 host:~/tango$ git init
 ```
+
 1. Add the files to Git:
 ```bash
 host:~/tango$ git add .
 ```
+
 1. Commit the first version to Git:
    ```bash
  host:~/tango$ git commit -am "The first Commit!"
 ```
+
 1. Create a Heroku instance:
 ```bash
 host:~/tango$ heroku create
 ```
+
 1. Deploy to Heroku:
 ```bash
 host:~/tango$ git push heroku master
 ```
+
 1. The last command will give you a URL where you can see your code running live!  Check it out:
 ```bash
 host:~/tango$ heroku open
@@ -219,16 +250,19 @@ host:~/tango$ heroku open
 ```bash
 host:~/tango$ git status
 ```
+
 1. Add files as necessary (see Git documentation for help).
 1. Finally, commit all the necessary changes and write a short Commit Message:
 ```bash
 host:~/tango$ git commit -am "Commit Message"
 ```
+
 1. Run your webapp on your own system as above, or on Heroku:
 ```bash
 host:~/tango$ git push heroku master
 host:~/tango$ heroku open
 ```
+
 ## OTRA VEZ:
 
 For added credit, create your own repository on GitHub and push your code to that!
