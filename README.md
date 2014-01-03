@@ -196,6 +196,7 @@ Start django apps as necessary.  Make or delete files as you need.
 **Note: Heroku is a pretty awesome service, which allows us to run our apps live online, for free!  To use it, we use Git to push our code to Heroku.  All of these commands are done on the host machine (in the third terminal window, if you followed the Dance Steps above).**
 
 1. Setup Heroku:
+
 ```bash
 host:~/tango$ heroku login
 ```
