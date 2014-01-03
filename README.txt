@@ -17,17 +17,24 @@ Note, the commands below given for the host are for a *nix based computer.
     Download and install Vagrant from www.vagrantup.com
     Download and install Git version control git-scm.com
     Go to Heroku, create an account, and download and install the heroku toolkit
-    Create a new folder on your computer for your django project. 
-        host:~$ mkdir ~/tango
 
-    Copy the files adorno.sh and Vagrantfile to that folder.
-        host:~$ cp ~/Downloads/adorno.sh ~/tango/
-        host:~$ cp ~/Downloads/Vagrantfile ~/tango/
-        host:~$ cp ~/Downloads/Git_Ignore ~/tango/.gitignore
-        host:~$ cp ~/Downloads/Procfile ~/tango/
+    Clone the Adorno repository:
+        host:~$ clone https://github.com/swiftarrow/Adorno.github
+    
+    Rename the Adorno folder to whatever you want to call it.  It will hold your Django project.
+        host:~$ mv ~/Adorno ~/tango
 
     Change to the project directory:
         host:~$ cd ~/tango
+        
+    Rename the Git_Ignore file to .gitignore:
+        host:~$ mv Git_Ignore .gitignore
+
+    Remove the .git directory:
+        host:~$ rm -rf .git
+    
+    If you don't agree with the PeaceOSL License for your project, remove it too:
+        host:~$ rm LICENSE.txt
 
     Start Vagrant
         host:~$ vagrant up
