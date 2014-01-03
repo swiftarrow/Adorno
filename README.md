@@ -70,7 +70,7 @@ host:~$ vagrant ssh
 ```bash
 vagrant:~$ sudo ./post_install.sh
 ```
-1. **Add Adorno to your Tango with Django:**
+1. **Add Adorno to your Tango with Django**:
 ```bash
 vagrant:~$ source /vagrant/adorno.sh
 ```
