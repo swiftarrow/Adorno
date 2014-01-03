@@ -15,8 +15,8 @@ Note, the commands below given for the host are for a *nix based computer.
 
     Download and install VirtualBox from www.virtualbox.org
     Download and install Vagrant from www.vagrantup.com
-    Download and install Git version control git-scm.com
-    Go to Heroku, create an account, and download and install the heroku toolkit
+    Download and install Git version control from www.git-scm.com
+    Go to Heroku, create an account, and download and install the heroku toolkit www.heroku.com
 
     Clone the Adorno repository:
         host:~$ clone https://github.com/swiftarrow/Adorno.github
@@ -30,7 +30,7 @@ Note, the commands below given for the host are for a *nix based computer.
     Rename the Git_Ignore file to .gitignore:
         host:~$ mv Git_Ignore .gitignore
 
-    Remove the .git directory:
+    Remove the .git directory (your project is different):
         host:~$ rm -rf .git
     
     If you don't agree with the PeaceOSL License for your project, remove it too:
