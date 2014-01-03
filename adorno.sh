@@ -24,7 +24,11 @@ echo 'Installing Dependencies: build-essential'
 
 sudo apt-get -y install build-essential
 
-echo 'Moving to Home Folder'
+echo 'Installing Dependencies: Extra Development Libraries'
+
+sudo apt-get -y libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev 
+
+echo 'Moving to Home Folder if Necessary'
 
 cd ~
 
@@ -58,7 +62,7 @@ which python
 
 echo 'Installing Dependencies: python-dev python-pip'
 
-sudo apt-get install python-dev python-pip
+sudo apt-get -y install python-dev python-pip
 
 echo 'Downloading and running the VirtualEnv Burrito Installer:'
 
