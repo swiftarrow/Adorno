@@ -24,7 +24,7 @@ echo 'Adding PythonBrew to bashrc...'
 
 echo '[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc' >> ~/.bashrc
 
-sleep 2
+sleep 5
 
 echo 'Sanity Check: is PythonBrew in bashrc:'
 
