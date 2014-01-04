@@ -26,7 +26,7 @@ sudo apt-get -y install build-essential
 
 echo 'Installing Dependencies: Extra Development Libraries'
 
-sudo apt-get -y libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev 
+sudo apt-get -y install libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev 
 
 echo 'Moving to Home Folder if Necessary'
 
