@@ -4,33 +4,17 @@
 # Author: Linkesh Diwan swiftarrow9@gmail.com
 # License: Peaceful Open Source Licens (PeaceOSL)
 
-echo 'Removing some files that came with Adorno, but you do not want:'
+echo 'Installing Dependencies'
 
-rm -rf /vagrant/.github
+sudo apt-get -y install build-essential g++ libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev make zlib1g-dev
 
-echo 'Implementing your new .gitignore:'
-
-mv /vagrant/Git_Ignore /vagrant/.gitignore
-
-echo 'Updating Package Database:'
-
-sudo apt-get update
-
-echo 'Installing Dependencies: curl'
-
-sudo apt-get -y install curl
-
-echo 'Installing Dependencies: build-essential'
-
-sudo apt-get -y install build-essential
-
-echo 'Installing Dependencies: Extra Development Libraries'
-
-sudo apt-get -y install libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev 
-
-echo 'Moving to Home Folder if Necessary'
+echo 'Moving to Vagrants Home Folder if Necessary'
 
 cd ~
+
+echo 'Removing Vagrant postinstall.sh'
+
+rm ~/postinstall.sh
 
 echo 'Downloading and Running the PythonBrew Installer:'
 
@@ -40,11 +24,13 @@ echo 'Adding PythonBrew to bashrc...'
 
 echo '[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc' >> ~/.bashrc
 
-sleep 5
+sleep 2
 
-echo 'Checking for PythonBrew in bashrc:'
+echo 'Sanity Check: is PythonBrew in bashrc:'
 
 grep pythonbrew ~/.bashrc
+
+echo 'Reloading bashrc'
 
 source ~/.bashrc
 
@@ -56,7 +42,7 @@ echo 'Switching to Python 2.7.5'
 
 pythonbrew switch 2.7.5
 
-echo 'Checking which version of Python is running:'
+echo 'Sanity Check: which version of Python is running:'
 
 which python
 
@@ -75,6 +61,15 @@ source ~/.venvburrito/startup.sh
 echo 'Changing to the Shared Directory:'
 
 cd /vagrant/
+
+echo 'Downloading .gitignore (needed by Git):'
+
+wget https://raw.github.com/swiftarrow/Adorno/master/Git_Ignore
+mv Git_Ignore .gitignore
+
+echo 'Downloading Procfile (needed by Heroku):'
+
+wget https://raw.github.com/swiftarrow/Adorno/master/Procfile
 
 echo 'Initial setup completed.  Carefully inspect the text above.'
 echo 'IF THERE ARE NO ERRORS, take a look at the instructions file.'

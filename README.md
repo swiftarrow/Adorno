@@ -23,23 +23,22 @@ This README document also doubles as a quick-reference guide for beginners like 
 
 **Note: All the command examples below contain the command prompt (everything before the `$`).  This shows you which terminal and which environment you should be in to execute the command properly.  The command, incidentally, is everything after the `$`, not including `$`.**
 
+**Note: the commands below given for the host are for a Debian-based (Ubuntu, LinuxMint, etc) computer.  For Windows and Mac hosts, there might be small differences.**
+
 ## GETTING READY TO TANGO:
 
-**Note: the commands below given for the host are for a *nix based computer.**
-
-1. Download and install VirtualBox from www.virtualbox.org
-2. Download and install Vagrant from www.vagrantup.com
-3. Download and install Git version control from www.git-scm.com
-4. Go to Heroku, create an account, and download and install the heroku toolkit www.heroku.com
-
-5. Clone the Adorno repository:
+1. Download and install VirtualBox from www.virtualbox.org.  Use the packages from the website, not the ones in your distribution's repositories.
+2. Download and install Vagrant from www.vagrantup.com.  Again, find the packages on the website.
+3. Download and install Git version control from www.git-scm.com.
 ```bash
-host:~$ git clone https://github.com/swiftarrow/Adorno.github
+host:~$ sudo apt-get -y install git
 ```
 
-1. Rename the Adorno folder to whatever you want to call it.  It will hold your Django project.
-   ```bash
- host:~$ mv ~/Adorno ~/tango
+4. (Optional, Highly Recommended) Go to Heroku, create an account, and download and install the heroku toolkit www.heroku.com 
+
+1. Create a folder for your Django project.
+```bash
+host:~$ mv ~/Adorno ~/tango
 ```
 
 1. Change to the project directory:
@@ -47,36 +46,31 @@ host:~$ git clone https://github.com/swiftarrow/Adorno.github
 host:~$ cd ~/tango
 ```
 
-1. If you don't agree with the PeaceOSL License for your project, remove it:
+1. Download the Vagrantfile to your project directory:
+
 ```bash
-host:~$ rm LICENSE.txt
+host:~/tango$ wget https://raw.github.com/swiftarrow/Adorno/master/Vagrantfile
 ```
 
 1. Start Vagrant
 ```bash
-host:~$ vagrant up
+host:~/tango$ vagrant up
 ```
 
-1. It will download and install the precise64 virtual image, and then boot the system.
-1. After it's booted, go into the vagrant box by:
+1. It will download and install the precise64 virtual image, and then boot the system.  After booting, it will update the package lists, and then install `curl`.
+1. After it's booted, log into the vagrant box by:
 ```bash
-host:~$ vagrant ssh
+host:~/tango$ vagrant ssh
 ```
 
-1. You are now logged into your virtual system.  Now we need to set up the machine for use.
-1. Execute vagrant's post-install script:
+1. At last, we can **Add Adorno to your Tango with Django:**
 ```bash
-vagrant:~$ sudo ./post_install.sh
-```
-
-1. **Add Adorno to your Tango with Django:**
-```bash
-vagrant:~$ source /vagrant/adorno.sh
+vagrant:~$ curl -s https://raw.github.com/swiftarrow/Adorno/master/adorno.sh | bash
 ```
 
 1. Go over the output from the adorno command just to make sure that everything went through well.  
 If there were no errors, your good to go!  
-Adorno drops you into the folder vagrant:/vagrant/, which is actually the same as your project directory, host:~/tango
+Adorno drops you into the folder `vagrant:/vagrant/`, which is actually the same as your project directory, `host:~/tango`
 
 1. Now it's time to start a virtual environment for our project:
 ```bash
@@ -105,12 +99,13 @@ http://www.tangowithdjango.com/book/chapters/requirements.html
 (tangodjango)vagrant:/vagrant$ pip install package_name
 ```
 
-  1. Finally, save your Package List:
+  1. Finally, save your Package List.  Note: You should repeat this step again if you install any additional packages via pip.
 ```bash
 (tangodjango)vagrant:/vagrant$ pip freeze > requirements.txt
 ```
 
-Celebrate!  You have finished setting up the requirements for Tango with Django!
+Celebrate!  You have finished setting up the requirements for Tango with Django!  You can continue to follow the tutorial from section 3:
+http://www.tangowithdjango.com/book/chapters/setup.html
 Since that's quite a bit of work for today, we'll wind down before starting the actual django project.
 
 
@@ -191,7 +186,7 @@ Start django apps as necessary.  Make or delete files as you need.
 1. On your host machine, open a browser and go to 127.0.0.1:8888 to admire your project!
 
 
-## GOING TO THE BIG STAGE:
+## TO THE BIG STAGE:
 
 **Note: Heroku is a pretty awesome service, which allows us to run our apps live online, for free!  To use it, we use Git to push our code to Heroku.  All of these commands are done on the host machine (in the third terminal window, if you followed the Dance Steps above).**
 
