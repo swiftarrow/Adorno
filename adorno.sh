@@ -6,9 +6,9 @@
 
 echo 'Welcome to Adorno!'
 
-PythonBrewNotFound = $ (pythonbrew | grep "command not found")
-
-if [$PythonBrewNotFound]
+if ! command -v pythonbrew
+then
+    # pythonbrew was NOT found
     # We're on Round 1
     
     echo 'We will now prepare your system to Tango!'
@@ -34,20 +34,20 @@ if [$PythonBrewNotFound]
 
     echo 'Sanity Check: is PythonBrew in .bashrc?'
 
-    if [$ (grep pythonbrew ~/.bashrc)]
-
+    if grep -q "pythonbrew" ~/.bashrc
+    then
         echo 'Yes it is! Success! Next steps:'
-        echo '1. Log out by typing exit'
-        echo '2. Log back in by typing vagrant up'
-        echo '3. Again run the adorno.sh script to continue'
+        echo '1. Log back with: vagrant ssh'
+        echo '2. Run adorno.sh script again to continue'
         exit 0
     else
-        echo 'Could not find it. Something Bad Happened.'
+        echo 'Could not find it. Something bad happened.'
         echo 'Sorry, I dont know what to do.'
-        exit 1
+        echo 'Try looking at the code in adorno.sh and running the commands manually.'
     fi
 
 else
+    # pythonbrew was found
     # We're on Round 2
 
     which pythonbrew
@@ -95,4 +95,5 @@ else
     echo 'IF THERE ARE NO ERRORS, take a look at the instructions file.'
     echo 'Armed with your new knowledge, continue with section 2.2.2 of'
     echo 'www.TangoWithDjango.com/book/chapers/requirements.html'
+
 fi
