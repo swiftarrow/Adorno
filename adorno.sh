@@ -5,78 +5,94 @@
 # License: Peaceful Open Source Licens (PeaceOSL)
 
 echo 'Welcome to Adorno!'
-echo 'We will now prepare your system to Tango!'
-echo 'Installing Dependencies'
 
-sudo apt-get -y install build-essential g++ libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev make zlib1g-dev
+PythonBrewNotFound = $ (pythonbrew | grep "command not found")
 
-echo 'Moving to Vagrants Home Folder if Necessary'
+if [$PythonBrewNotFound]
+    # We're on Round 1
+    
+    echo 'We will now prepare your system to Tango!'
+    echo 'Installing Dependencies:'
+    
+    sudo apt-get -y install build-essential g++ libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev make zlib1g-dev
+    
+    echo 'Moving to Vagrants Home Folder if Necessary'
+    
+    cd ~
 
-cd ~
+    echo 'Removing Vagrant postinstall.sh'
 
-echo 'Removing Vagrant postinstall.sh'
+    rm ~/postinstall.sh
 
-rm ~/postinstall.sh
+    echo 'Downloading and Running the PythonBrew Installer:'
 
-echo 'Downloading and Running the PythonBrew Installer:'
+    curl -kL http://xrl.us/pythonbrewinstall | bash
 
-curl -kL http://xrl.us/pythonbrewinstall | bash
+    echo 'Adding PythonBrew to .bashrc.'
 
-echo 'Adding PythonBrew to bashrc...'
+    echo '[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc' >> ~/.bashrc
 
-echo '[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc' >> ~/.bashrc
+    echo 'Sanity Check: is PythonBrew in .bashrc?'
 
-echo 'Sanity Check: is PythonBrew in bashrc:'
+    if [$ (grep pythonbrew ~/.bashrc)]
 
-grep pythonbrew ~/.bashrc
+        echo 'Yes it is! Success! Next steps:'
+        echo '1. Log out by typing exit'
+        echo '2. Log back in by typing vagrant up'
+        echo '3. Again run the adorno.sh script to continue'
+        exit 0
+    else
+        echo 'Could not find it. Something Bad Happened.'
+        echo 'Sorry, I dont know what to do.'
+        exit 1
+    fi
 
-sleep 2
+else
+    # We're on Round 2
 
-echo 'Reloading bashrc'
+    which pythonbrew
 
-source ~/.bashrc
-# and again for good measure.  For some reason it doesn't work normally on the first try.
-sleep 1
-source ~/.bashrc
+    echo 'Now we will continue the prepartion for Tango!'
 
-echo 'Installing Python 2.7.5:'
+    echo 'Installing Python 2.7.5:'
 
-pythonbrew install 2.7.5
+    pythonbrew install 2.7.5
 
-echo 'Switching to Python 2.7.5'
+    echo 'Switching to Python 2.7.5'
 
-pythonbrew switch 2.7.5
+    pythonbrew switch 2.7.5
 
-echo 'Sanity Check: which version of Python is running:'
+    echo 'Sanity Check: which version of Python is running:'
 
-which python
+    which python
 
-echo 'Installing Dependencies: python-dev python-pip'
+    echo 'Installing Dependencies: python-dev python-pip'
 
-sudo apt-get -y install python-dev python-pip
+    sudo apt-get -y install python-dev python-pip
 
-echo 'Downloading and running the VirtualEnv Burrito Installer:'
+    echo 'Downloading and running the VirtualEnv Burrito Installer:'
 
-curl -s https://raw.github.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | bash
+    curl -s https://raw.github.com/brainsik/virtualenv-burrito/master/virtualenv-burrito.sh | bash
 
-echo 'Starting VirtualEnv Burrito:'
+    echo 'Starting VirtualEnv Burrito:'
 
-source ~/.venvburrito/startup.sh
+    source ~/.venvburrito/startup.sh
 
-echo 'Changing to the Shared Directory:'
+    echo 'Changing to the Shared Directory:'
 
-cd /vagrant/
+    cd /vagrant/
 
-echo 'Downloading .gitignore (needed by Git):'
+    echo 'Downloading .gitignore (needed by Git):'
 
-wget https://raw.github.com/swiftarrow/Adorno/master/Git_Ignore
-mv Git_Ignore .gitignore
+    wget https://raw.github.com/swiftarrow/Adorno/master/Git_Ignore
+    mv Git_Ignore .gitignore
 
-echo 'Downloading Procfile (needed by Heroku):'
+    echo 'Downloading Procfile (needed by Heroku):'
 
-wget https://raw.github.com/swiftarrow/Adorno/master/Procfile
+    wget https://raw.github.com/swiftarrow/Adorno/master/Procfile
 
-echo 'Initial setup completed.  Carefully inspect the text above.'
-echo 'IF THERE ARE NO ERRORS, take a look at the instructions file.'
-echo 'Armed with your new knowledge, continue with section 2.2.2 of'
-echo 'www.TangoWithDjango.com/book/chapers/requirements.html'
+    echo 'Initial setup completed.  Carefully inspect the text above.'
+    echo 'IF THERE ARE NO ERRORS, take a look at the instructions file.'
+    echo 'Armed with your new knowledge, continue with section 2.2.2 of'
+    echo 'www.TangoWithDjango.com/book/chapers/requirements.html'
+fi
