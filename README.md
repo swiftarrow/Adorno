@@ -67,6 +67,12 @@ host:~/tango$ vagrant ssh
 vagrant:~$ curl -s https://raw.github.com/swiftarrow/Adorno/master/adorno.sh | bash
 ```
 
+1. The Adorno script needs to run twice.  The first run installs some dependencies and drops you back to the host.  SSH back into vagrant and run the script again:
+```bash
+host:~/tango$ vagrant ssh
+vagrant:~$ curl -s https://raw.github.com/swiftarrow/Adorno/master/adorno.sh | bash
+```
+
 1. Go over the output from the adorno command just to make sure that everything went through well.  
 If there were no errors, your good to go!  
 Adorno drops you into the folder `vagrant:/vagrant/`, which is actually the same as your project directory, `host:~/tango`
@@ -76,12 +82,7 @@ Adorno drops you into the folder `vagrant:/vagrant/`, which is actually the same
 vagrant:/vagrant$ mkvirtualenv tangodjango
 ```
 
-1. And let's activate the new environment:
-```bash
-vagrant:/vagrant$ workon tangodjango
-```
-
-1. Now we should continue with the Tango with Django instructions found here:
+1. Continue with the Tango with Django instructions found here:
 http://www.tangowithdjango.com/book/chapters/requirements.html
   1. Install Django (section 2.2.4):
 ```bash
