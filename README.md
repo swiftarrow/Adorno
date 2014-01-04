@@ -38,7 +38,7 @@ host:~$ sudo apt-get -y install git
 
 1. Create a folder for your Django project.
 ```bash
-host:~$ mv ~/Adorno ~/tango
+host:~$ mkdir ~/tango
 ```
 
 1. Change to the project directory:
@@ -47,7 +47,6 @@ host:~$ cd ~/tango
 ```
 
 1. Download the Vagrantfile to your project directory:
-
 ```bash
 host:~/tango$ wget https://raw.github.com/swiftarrow/Adorno/master/Vagrantfile
 ```
@@ -106,7 +105,8 @@ http://www.tangowithdjango.com/book/chapters/requirements.html
 
 Celebrate!  You have finished setting up the requirements for Tango with Django!  You can continue to follow the tutorial from section 3:
 http://www.tangowithdjango.com/book/chapters/setup.html
-Since that's quite a bit of work for today, we'll wind down before starting the actual django project.
+
+Since that's quite a bit of work for today, we'll finish up before starting the actual django project.
 
 
 ## RESOLUTIÒN THE EASY WAY:
@@ -130,7 +130,7 @@ host:~/tango$ vagrant suspend
 
 1. Exit the vagrant box:
 ```bash
-(tangodjango)vagrant:/vagrant$ exit
+vagrant:/vagrant$ exit
 ```
 
 1. Shut down the vagrant box:
@@ -142,7 +142,7 @@ host:~/tango$ halt
 
 ***Note: this is a sample workflow, assuming that you are on a *nix based host computer.  For windows based computers, the exact commands may vary slightly.***
 
-The best way to do this is have three terminal windows, each open to ~/tango.  On two of them, log into the vagrant box.  Use one of these for runserver, and the other for file operations.  Use the third window for file operations on the host system.  For the following, we're labelling these three windows T1, T2, and T3.
+The best way to do this is have three terminal windows, each open to `~/tango`.  On two of them, log into the vagrant box.  Use one of these for runserver, and the other for file operations.  Use the third window for file operations on the host system.  For the following, we're labelling these three windows T1, T2, and T3.
 
 1. T1 Start the vagrant box that we've already prepared:
 ```bash
@@ -166,21 +166,21 @@ vagrant:/vagrant$ workon tangodjango
 
 1. T1 If you haven't already, start a Django project:
 ```bash
-(tangodjango)vagrant:/vagrant$ django-admin.py startproject rango
+(tangodjango)vagrant:/vagrant$ django-admin.py startproject rango-project
 ```
 
 1. T1 & T2 Enter the project directory:
 ```bash
-(tangodjango)vagrant:/vagrant$ cd rango
+(tangodjango)vagrant:/vagrant$ cd rango-project
 ```
 
 Now you're all set.  Use your editor on your host machine to edit the files as you need.  
-They are in the folder ~/tango/rango
+They are in the folder `~/tango/rango-project`
 Start django apps as necessary.  Make or delete files as you need.
 
 1. T1 Finally, come to the live test (note the IP and port specifier are important!)
 ```bash
-(tangodjango)vagrant:/vagrant/rango$ python manage.py runserver 0.0.0.0:8000
+(tangodjango)vagrant:/vagrant/rango-project$ python manage.py runserver 0.0.0.0:8000
 ```
 
 1. On your host machine, open a browser and go to 127.0.0.1:8888 to admire your project!
