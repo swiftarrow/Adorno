@@ -4,6 +4,8 @@
 # Author: Linkesh Diwan swiftarrow9@gmail.com
 # License: Peaceful Open Source Licens (PeaceOSL)
 
+echo 'Welcome to Adorno!'
+echo 'We will now prepare your system to Tango!'
 echo 'Installing Dependencies'
 
 sudo apt-get -y install build-essential g++ libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev make zlib1g-dev
@@ -24,14 +26,17 @@ echo 'Adding PythonBrew to bashrc...'
 
 echo '[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc' >> ~/.bashrc
 
-sleep 5
-
 echo 'Sanity Check: is PythonBrew in bashrc:'
 
 grep pythonbrew ~/.bashrc
 
+sleep 2
+
 echo 'Reloading bashrc'
 
+source ~/.bashrc
+# and again for good measure.  For some reason it doesn't work normally on the first try.
+sleep 1
 source ~/.bashrc
 
 echo 'Installing Python 2.7.5:'
