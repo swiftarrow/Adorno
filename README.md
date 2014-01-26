@@ -181,7 +181,7 @@ Start django apps as necessary.  Make or delete files as you need.
 
 1. T1 Finally, come to the live test (note the IP and port specifier are important!)
 ```bash
-(tangodjango)vagrant:/vagrant/rango-project$ python manage.py runserver 0.0.0.0:8000
+(tangodjango)vagrant:/vagrant/rango-project$ python manage.py runserver 0.0.0.0:8888
 ```
 
 1. On your host machine, open a browser and go to 127.0.0.1:8888 to admire your project!
