@@ -16,6 +16,7 @@ temp_file="adorno_second_round_marker"
 function Adorno_Unset() {
     unset ad_project_name ad_current_python ad_required_python ad_install_python ad_install_pythonbrew ad_support_git ad_support_Heroku ad_use_virtualenv ad_virtualenv_name ad_use_pip ad_pip_install_requirements ad_install_packages ad_supplemental_actions ad_supplemental_actions_file ad_success_message
     if [ -n "$adorno_finito" ]
+    then
         rm $temp_file
     fi
     unset adorno_finito
