@@ -1,6 +1,6 @@
 #!/bin/bash
 # Adorno — Adornment; embellishment, in Tango.
-# Bash Script to help set up a vagrant VM to work with the Tango with Django online book.  There is no exception handling.
+# Bash Script to help developers get quickly setup to work on your django project.
 # Author: Linkesh Diwan swiftarrow9@gmail.com
 # License: Peaceful Open Source Licens (PeaceOSL)
 
@@ -17,7 +17,10 @@ Adorno_Unset() {
     unset ad_project_name ad_current_python ad_required_python ad_install_python ad_install_pythonbrew ad_support_git ad_support_Heroku ad_use_virtualenv ad_virtualenv_name ad_use_pip ad_pip_install_requirements ad_install_packages ad_supplemental_actions ad_supplemental_actions_file ad_success_message
     if [ -n "$adorno_finito" ]
     then
-        rm $temp_file
+        if  [ -e $temp_file ]
+        then
+            rm $temp_file
+        fi
     fi
     unset adorno_finito
 }
@@ -101,7 +104,7 @@ Check_Adorno_Setup() {
 }
 
 Check_Python() {
-    echo "Checking if Python Exists"
+    echo "Checking Python Version"
     which python &>/dev/null
     if [ $? -eq 0 ]
     then
@@ -109,7 +112,7 @@ Check_Python() {
         ad_current_python=$(python -c 'import sys; print("%s.%s.%s" % sys.version_info[:3])')
     else
         ad_current_python="0.0.0"
-    #     echo "No Python Found!"
+        echo "No Python Found!"
     fi
     echo "Current Python Version $ad_current_python"
     echo "Required Python Version $ad_required_python"
@@ -121,7 +124,7 @@ Check_Python() {
         echo "Python Dependencies Satisfied."
     else
         ad_install_python="True"
-        echo "Couldn't find the right version of python, so preparing to install it.  Hang Tight..."
+        echo "Required version of python not found, so preparing to install it.  Hang Tight..."
     fi
 }
 
@@ -140,7 +143,7 @@ Install_Python() {
 
 
 Check_PythonBrew() {
-    echo "Checking for PythonBrew"
+    echo "Checking for PythonBrew..."
     which pythonbrew &>/dev/null
     if [ $? -eq 0 ]
     then
@@ -200,7 +203,7 @@ Install_PythonBrew() {
 echo "Checking Adorno Setup"
 Check_Adorno_Setup
 
-echo "Checking Python"
+# echo "Checking Python"
 Check_Python
 # echo "Install Python $ad_install_python"
 
@@ -211,8 +214,10 @@ then
     if [ -n "$ad_install_pythonbrew" ]
     then
         #if we need to install pythonbrew
+#         echo "Install PythonBrew"
         Install_PythonBrew
     else
+#         echo "Install Python"
         Install_Python
     fi
 fi
@@ -255,7 +260,7 @@ fi
 
 if [ -n "$ad_pip_install_requirements" ]
 then
-    pip install -r requirements.txt
+    pip install -r "$ad_pip_install_requirements"
 fi
 
 if [ -n "$ad_install_packages" ]
@@ -270,7 +275,10 @@ then
     source "$ad_supplemental_actions_file"
 fi
 
-echo "Initial setup completed.  Carefully inspect the messages above.  If there are no errors, take a look at the Adorno README to learn how to use the stuff we've installed."
+echo ""
+echo "Congratulations!!!"
+echo ""
+echo "Initial setup completed.  Carefully inspect the messages above.  If there are no errors, take a look at the Adorno README to learn how to use all the toys we've installed."
 echo " "
 echo "$ad_success_message"
 
