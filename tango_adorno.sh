@@ -44,7 +44,16 @@ ad_success_message="Armed with your new knowledge, continue with section 2.2.2 o
 
 
 # # TESTING
+# if $(grep -q def ~/.bashrc)
+# then
+#     echo "found"
+# else
+#     echo "notfound"
+# fi
 # 
+# 
+# # # TESTING
+# # 
 # # dm_required_python="2.7.3"
 # # dm_required_python="2.7.5"
 # 

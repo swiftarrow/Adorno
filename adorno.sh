@@ -13,7 +13,7 @@ cd /vagrant/
 
 temp_file="adorno_second_round_marker"
 
-function Adorno_Unset() {
+Adorno_Unset() {
     unset ad_project_name ad_current_python ad_required_python ad_install_python ad_install_pythonbrew ad_support_git ad_support_Heroku ad_use_virtualenv ad_virtualenv_name ad_use_pip ad_pip_install_requirements ad_install_packages ad_supplemental_actions ad_supplemental_actions_file ad_success_message
     if [ -n "$adorno_finito" ]
     then
@@ -25,20 +25,20 @@ function Adorno_Unset() {
 unset adorno_finito
 Adorno_Unset
 
-function Exit_Clean() {
+Exit_Clean() {
     adorno_finito="True" #Remove all the files too
     Adorno_Unset
     exit 0
 }
 
-function Exit_Unclean() {
+Exit_Unclean() {
     unset adorno_finito #Do not Remove Files
     Adorno_Unset
     exit 0
 }
 
 # Ask function from https://gist.github.com/davejamesmiller/1965569
-function ask {
+ask() {
     while true; do
         if [ "${2:-}" = "Y" ]; then
             prompt="Y/n"
@@ -66,21 +66,28 @@ function ask {
 
 # Search for Adorno Project Setup File
 # If it doesn't exist, fail gracefully
-function Check_Adorno_Setup() {
+Check_Adorno_Setup() {
     echo 'Searching for Project Setup File...'
-    source $(ls | grep _adorno.sh)
+    #source $(ls | grep _adorno.sh)
+    for file in ./*_adorno.sh
+    do
+        source "$file"
+    done
+    
     if [ -z "$ad_project_name" ]
     then
         # -z ad_project_name is empty.  NOTE: -n checks if it is not empty.
         if  [ -e $temp_file ]
         then    # This means that we've executed once already, so we must be doing the tango install.
-            curl -s https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash
+            curl -S https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash
             echo "Continuing towards a Tango with Django"
         else
             echo 'Adorno Project Setup Script is not found or not valid.'
             if ask "Shall we prepare for a Tango with Django?" Y
             then
-                curl -s https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash
+#                 curl -S https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash
+                wget https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh
+                source tango_adorno.sh
             else
                 echo "You need to download the Adorno Project Setup Script from the project's repository.  It is a shell script file called:"
                 echo "*_adorno.sh"
@@ -93,8 +100,8 @@ function Check_Adorno_Setup() {
     fi
 }
 
-function Check_Python() {
-    # Check if python exists.
+Check_Python() {
+    echo "Checking if Python Exists"
     which python &>/dev/null
     if [ $? -eq 0 ]
     then
@@ -104,7 +111,8 @@ function Check_Python() {
         ad_current_python="0.0.0"
     #     echo "No Python Found!"
     fi
-
+    echo "Current Python Version $ad_current_python"
+    echo "Required Python Version $ad_required_python"
     # If we have the right version of Python, then continue.  Else, note that we need to install python.
     if [ "$ad_current_python" == "$ad_required_python" ]
     then
@@ -113,33 +121,34 @@ function Check_Python() {
         echo "Python Dependencies Satisfied."
     else
         ad_install_python="True"
-        echo "Couldn't find the right version of python, so preparing to install it.  Hang Tight!"
+        echo "Couldn't find the right version of python, so preparing to install it.  Hang Tight..."
     fi
 }
 
 # NOTE If we install python at all, we install it via pythonbrew
 
-function Install_Python() {
+Install_Python() {
     echo "Installing Python $ad_required_python"
-    pythonbrew install $ad_required_python
+    pythonbrew install "$ad_required_python"
 
     echo "Enabling Python $ad_required_python"
-    pythonbrew switch $ad_required_python
+    pythonbrew switch "$ad_required_python"
 
     echo 'Sanity Check: is the right version of Python running?'
     Check_Python
 }
 
 
-function Check_PythonBrew() {
+Check_PythonBrew() {
+    echo "Checking for PythonBrew"
     which pythonbrew &>/dev/null
     if [ $? -eq 0 ]
     then
-        echo "PythonBrew installed successfully!"
+        echo "PythonBrew installed successfully."
         unset ad_install_pythonbrew
         rm $temp_file
     else
-        if grep -q "pythonbrew" ~/.bashrc
+        if grep -q pythonbrew ~/.bashrc
         then
             # Pythonbrew command doesn't work, but pythonbrew is in the bashrc: Something Sinister
             echo 'ERROR: Could not find PythonBrew. Something bad happened.'
@@ -155,10 +164,10 @@ function Check_PythonBrew() {
 }
 
 
-function Install_PythonBrew() {
+Install_PythonBrew() {
     echo "Preparing to install PythonBrew"
     echo 'Installing Dependencies:'
-    
+
     sudo apt-get -y install build-essential g++ libbz2-dev libdb5.1-dev libexpat1-dev libncurses5-dev libreadline-dev libreadline6-dev libssl-dev libsqlite3-dev libxml2-dev libxslt-dev make zlib1g-dev
 
     echo 'Downloading and Running the PythonBrew Installer:'
@@ -188,10 +197,13 @@ function Install_PythonBrew() {
 ####################################
 # Here is where the work begins!!! #
 ####################################
-
+echo "Checking Adorno Setup"
 Check_Adorno_Setup
 
+echo "Checking Python"
 Check_Python
+# echo "Install Python $ad_install_python"
+
 if [ -n "$ad_install_python" ]
 then
     # If we need to install Python
@@ -202,6 +214,7 @@ then
         Install_PythonBrew
     else
         Install_Python
+    fi
 fi
 
 echo "Removing Vagrant postinstall.sh"
@@ -209,7 +222,6 @@ rm ~/postinstall.sh
 
 if [ -n "$ad_use_virtualenv" ]
 then
-    ad_use_pip="True"
     echo 'Installing Dependencies: python-dev python-pip'
     sudo apt-get -y install python-dev python-pip
 
@@ -218,10 +230,10 @@ then
 
     echo 'Starting VirtualEnv Burrito:'
     source ~/.venvburrito/startup.sh
-    
+
     if [ -n "$ad_virtualenv_name" ]
     then
-        mkvirtualenv $ad_virtualenv_name
+        mkvirtualenv "$ad_virtualenv_name"
     fi
 fi
 
@@ -249,18 +261,18 @@ fi
 if [ -n "$ad_install_packages" ]
 then
     echo "Installing additional packages..."
-    sudo apt-get install -y $ad_install_packages
+    sudo apt-get install -y "$ad_install_packages"
 fi
 
 if [ -n "$ad_supplemental_actions" ]
 then
     echo "Executing Supplemental Actions..."
-    source $ad_supplemental_actions_file
+    source "$ad_supplemental_actions_file"
 fi
 
 echo "Initial setup completed.  Carefully inspect the messages above.  If there are no errors, take a look at the Adorno README to learn how to use the stuff we've installed."
 echo " "
-echo $ad_success_message
+echo "$ad_success_message"
 
 adorno_finito="True"
 Adorno_Unset
