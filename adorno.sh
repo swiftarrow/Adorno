@@ -272,7 +272,7 @@ fi
 if [ -n "$ad_supplemental_actions" ]
 then
     echo "Executing Supplemental Actions..."
-    source "$ad_supplemental_actions_file"
+    source "$ad_supplemental_actions"
 fi
 
 echo ""

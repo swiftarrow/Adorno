@@ -36,8 +36,7 @@ ad_virtualenv_name="Tango_Django"
 # ad_install_packages=""
 
 # Use a supplemental actions file to do other things that Adorno doesn't support.  Custom software installations, etc.  Your script will be executed before Adorno exits.
-# ad_supplemental_actions="True"
-# ad_supplemental_actions_file=""
+# ad_supplemental_actions="path_to_file.sh"
 
 # A final message to the new developer:
 ad_success_message="Armed with your new knowledge, continue with section 2.2.2 of www.TangoWithDjango.com/book/chapers/requirements.html"
