@@ -37,6 +37,32 @@ function Exit_Unclean() {
     exit 0
 }
 
+# Ask function from https://gist.github.com/davejamesmiller/1965569
+function ask {
+    while true; do
+        if [ "${2:-}" = "Y" ]; then
+            prompt="Y/n"
+            default=Y
+        elif [ "${2:-}" = "N" ]; then
+            prompt="y/N"
+            default=N
+        else
+            prompt="y/n"
+            default=
+        fi
+        # Ask the question
+        read -p "$1 [$prompt] " REPLY
+        # Default?
+        if [ -z "$REPLY" ]; then
+            REPLY=$default
+        fi
+        # Check if the reply is valid
+        case "$REPLY" in
+            Y*|y*) return 0 ;;
+            N*|n*) return 1 ;;
+        esac
+    done
+}
 
 # Search for Adorno Project Setup File
 # If it doesn't exist, fail gracefully
@@ -52,14 +78,15 @@ function Check_Adorno_Setup() {
             echo "Continuing towards a Tango with Django"
         else
             echo 'Adorno Project Setup Script is not found or not valid.'
-            while true; do
-                read -p "Shall we prepare for a Tango with Django?" yn
-                case $yn in
-                    [Yy]* ) curl -s https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash; break;;
-                    [Nn]* ) echo "You need to download the Adorno Project Setup Script from the project's repository.  It is a shell script file called '*_adorno.sh'. Find it, download it, and put it next to adorno.sh.  Then try again.  Good Luck!"; Exit_Clean;;
-                    * ) echo "Please answer yes or no.";;
-                esac
-            done
+            if ask "Shall we prepare for a Tango with Django?" Y
+            then
+                curl -s https://raw.github.com/swiftarrow/Adorno/master/tango_adorno.sh | bash
+            else
+                echo "You need to download the Adorno Project Setup Script from the project's repository.  It is a shell script file called:"
+                echo "*_adorno.sh"
+                echo "Find it, download it, and put it next to adorno.sh.  Then try again.  Good Luck!"
+                Exit_Clean
+            fi
         fi
     else
         echo "We will now prepare your system for $ad_project_name"
